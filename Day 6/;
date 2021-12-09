@@ -1,0 +1,32 @@
+import numpy as np
+
+NUM_DAYS = 80
+
+with open( 'input.txt', 'r' ) as f:
+
+    timers = f.readline().strip().split( ',' )
+    timers = np.array( timers ).astype( int )
+
+for day in range( NUM_DAYS ):
+    new_fish_timers = np.array( [] )
+
+    for i, t in enumerate( timers ):
+        if t == 0:
+            # Reset to 7 (instructions say 6, but we're decrementing after)
+            timers[i] = 7
+
+            # Add new timer
+            new_fish_timers = np.append( new_fish_timers, 8 )
+
+    timers = timers - 1
+
+    if len( new_fish_timers ) > 0:
+        timers = np.concatenate( (timers, new_fish_timers) )
+
+print( len( timers ) )
+
+# Note: The above takes absurdly long (exponential) as NUM_DAYS increases
+# We can rather, calculate the number of offspring based on the current
+# starting number
+
+
